@@ -10,7 +10,7 @@ import { setUpImportRepo } from './handler/import';
 import fetch from "node-fetch";
 import { getMainServerUrl } from './utils/get-url';
 
-const PORT = process.env.PORT || 3002;
+const PORT = process.env.PORT || 80;
 
 const app = new Koa();
 const router = new Router();
