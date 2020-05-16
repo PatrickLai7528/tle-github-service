@@ -7,6 +7,8 @@ import * as socketio from "socket.io";
 const cors = require('@koa/cors');
 import { getRepoList } from './handler/get-repo-list';
 import { setUpImportRepo } from './handler/import';
+import fetch from "node-fetch";
+import { getMainServerUrl } from './utils/get-url';
 
 const PORT = process.env.PORT || 3002;
 
@@ -26,6 +28,14 @@ setUpImportRepo(io);
 
 router.get('/github/webhook', async (ctx) => {
    const payload = await parse(ctx);
+
+   // tranform payload to commit
+
+   // const res = await fetch(`${getMainServerUrl()}/api/repository/new-commit`, {
+   //    method: "POST",
+   //    body: commit
+   // }).then(res => res.json());
+   // console.log(res);
 });
 
 router.get("/repos", getRepoList);
