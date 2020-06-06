@@ -27,6 +27,9 @@ setUpImportRepo(io);
 
 
 router.get('/github/webhook', async (ctx) => {
+
+   console.log("in hook")
+
    const payload = await parse(ctx);
 
    console.log(payload);
