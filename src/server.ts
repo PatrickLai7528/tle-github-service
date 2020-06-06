@@ -33,11 +33,11 @@ router.post('/github/webhook', async (ctx) => {
    const payload = await parse(ctx);
 
    // tranform payload to commit
-   const { repository, commit } = payload;
+   const { repository, commits } = payload;
    const repoName = repository.name;
    const ownerId = repository.owner.name;
 
-   console.log(commit);
+   console.log(commits);
    // const res = await fetch(`${getMainServerUrl()}/api/repository/new-commit`, {
    //    method: "POST",
    //    body: commit
