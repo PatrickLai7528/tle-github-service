@@ -26,7 +26,7 @@ const io = socketio(server);
 setUpImportRepo(io);
 
 
-router.get('/github/webhook', async (ctx) => {
+router.post('/github/webhook', async (ctx) => {
 
    console.log("in hook")
 
