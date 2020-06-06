@@ -29,6 +29,7 @@ setUpImportRepo(io);
 router.get('/github/webhook', async (ctx) => {
    const payload = await parse(ctx);
 
+   console.log(payload);
    // tranform payload to commit
 
    // const res = await fetch(`${getMainServerUrl()}/api/repository/new-commit`, {
