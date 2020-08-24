@@ -33,11 +33,33 @@ router.post('/github/webhook', async (ctx) => {
    const payload = await parse(ctx);
 
    // tranform payload to commit
-   const { repository, commits } = payload;
+   const { repository, commits, trees_url: treesUrl } = payload;
    const repoName = repository.name;
    const ownerId = repository.owner.name;
-
    console.log(commits);
+
+   const baseTreesUrl = treesUrl.replact("{/sha}", "");
+
+   for (const commit of commits) {
+      const { tree_id: treeId } = commit;
+      const finalTreeUrl = `${baseTreesUrl}/${treeId}`;
+      const treeResponse = await fetch(finalTreeUrl).then(res => res.json());
+      const { tree } = treeResponse;
+      for (const treeNode of tree) {
+         const { path, url } = treeNode;
+         const contentResponse = await fetch(url).then(res => res.json());
+         const { content, encoding } = contentResponse;
+         let decodedContent;
+
+         if (encoding === "base64") {
+            decodedContent = Buffer.from(content, "base64").toString();
+         } else {
+            decodedContent = content;
+         }
+
+
+      }
+   }
    // const res = await fetch(`${getMainServerUrl()}/api/repository/new-commit`, {
    //    method: "POST",
    //    body: commit
